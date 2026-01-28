@@ -15,6 +15,7 @@ export default{
         destinationId(){
             return parseInt(this.$route.params.id)
         },
+        // ถ้าจะเรียกใช้ ค่าใน Compute ต้องเรียกด้วย this. หรือ ถ้าเรียกใช้ใน template จะเรียกผ่าน {{}}
         destination(){
             return sourceData.destinations.find(des => des.id === this.destinationId)
         }
