@@ -6,36 +6,36 @@
             <p>{{ destination.description}}</p>
         </div>
     </section>
+    <section class="experiences">
+        <h2>Top Experience in {{ destination.name }} </h2>
+            <div class="cards">
+                <router-link 
+                    v-for="experience in destination.experiences"
+                    :key="experience.slug"
+                    :to="{name:'experience.show', params:{experienceSlug:experience.slug}}">
+                    <ExperienceCard
+                        :experience="experience"/>
+                </router-link>
+            </div>
+    </section>
 </template>
 
 <script>
+
+import sourceData from "@/data.json"
+import ExperienceCard from "@/components/ExperienceCard.vue";
+
 export default{
-    data(){
-        return{
-            destination : null
-        }
+    components:{ExperienceCard},
+    props:{
+        id:{ type:Number , required:true },
+        slug:{type: String , required:true}
     },
     computed:{
-        destinationId(){
-            return parseInt(this.$route.params.id)
-        },
         // ถ้าจะเรียกใช้ ค่าใน Compute ต้องเรียกด้วย this. หรือ ถ้าเรียกใช้ใน template จะเรียกผ่าน {{}}
-    },
-    methods:{
-        async initData(){
-            const response = await fetch(`https://travel-dummy-api.netlify.app/${this.$route.params.slug}.json`)
-            this.destination = await response.json()
+        destination(){
+            return sourceData.destinations.find(des => des.id === this.id)
         }
-    },
-    created(){
-        this.initData();
     }
-    // created() {
-    // this.$watch(
-    //     () => this.$route.params.slug,
-    //     this.initData,
-    //     { immediate: true }
-    //     )
-    // }
 }
 </script>
