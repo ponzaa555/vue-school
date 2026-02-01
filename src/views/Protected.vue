@@ -2,11 +2,11 @@
     <div>
         <h1>Hello👋 , {{ username }}</h1>
         <button class="btn" @click="logout">Logout</button>
-        <router-link :to="{name:'invoices'}" >
+        <AppLink :to="{name:'invoices'}" >
             <button class="btn">
                 Invoice
             </button>
-        </router-link>
+        </AppLink>
     </div>
 </template>
 
