@@ -49,9 +49,22 @@ const routes : RouteRecordRaw[] = [
         ]
     },
     {
+        path:'/protected',
+        name:'protected',
+        component: () => import('@/views/Protected.vue'),
+        meta:{
+            requiresAuth:true,
+        }
+    },
+    {
         path:'/:pathMatch(.*)*',
         name:'NotFound',
         component:() => import('@/views/NotFound.vue')
+    },
+    {
+        path:'/login',
+        name:'login',
+        component: () => import('@/views/Login.vue')
     }
 ]
 
@@ -67,4 +80,11 @@ const router = createRouter({
       }
 })
 
+// gobal navigation guard
+router.beforeEach((to ,from) =>{
+    if(to.meta.requiresAuth && !window.user){
+        // need to login if not already logged in 
+        return {name:'login'}
+    }
+})
 export default router
