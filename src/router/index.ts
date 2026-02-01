@@ -1,5 +1,6 @@
 import Home from "@/views/Home.vue"
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import sourceData from '@/data.json'
 // import path = require("path")
 
 
@@ -18,6 +19,18 @@ const routes : RouteRecordRaw[] = [
               id: idStr ? parseInt(idStr, 10) : null
             }
           },
+        beforeEnter:(to,from) => {
+            const exits = sourceData.destinations.find(
+                des => (des.id === parseInt(to.params.id as string) && des.slug === to.params.slug )
+            )
+
+            if(!exits) return {
+                name:'NotFound',
+                params:{pathMatch: to.path.split('/').slice(1)},
+                query:to.query,
+                hash:to.hash
+            }
+        },
         children:[
             {
                 path:':experienceSlug',
@@ -34,6 +47,11 @@ const routes : RouteRecordRaw[] = [
                 }
             }
         ]
+    },
+    {
+        path:'/:pathMatch(.*)*',
+        name:'NotFound',
+        component:() => import('@/views/NotFound.vue')
     }
 ]
 
