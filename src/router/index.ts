@@ -58,7 +58,13 @@ const routes : RouteRecordRaw[] = [
 const router = createRouter({
     history:createWebHistory(),
     routes,
-    linkActiveClass:'vue-school-active-link'
+    linkActiveClass:'vue-school-active-link',
+    scrollBehavior (to, from, savedPosition) {
+        // return desired position
+        return savedPosition || new Promise((resolve) => {
+            setTimeout(() => resolve({top:0,behavior:'smooth'}),1000)
+        })
+      }
 })
 
 export default router
