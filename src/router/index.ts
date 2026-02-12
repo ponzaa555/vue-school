@@ -51,7 +51,10 @@ const routes : RouteRecordRaw[] = [
     {
         path:'/protected',
         name:'protected',
-        component: () => import('@/views/Protected.vue'),
+        components:{
+            default:() => import('@/views/Protected.vue'),
+            LeftSidebar: () => import('@/components/LeftSideBar.vue')
+        },
         meta:{
             requiresAuth:true,
         }
@@ -66,10 +69,13 @@ const routes : RouteRecordRaw[] = [
         name:'login',
         component: () => import('@/views/Login.vue')
     },
-    {
+    { 
         path:'/invoices',
         name:'invoices',
-        component:() => import('@/views/Invoices.vue'),
+        components:{
+            default:() => import('@/views/Invoices.vue'),
+            LeftSideBar:() => import('@/components/LeftSideBar.vue')
+        },
         meta:{
             requiresAuth:true
         }

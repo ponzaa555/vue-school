@@ -1,7 +1,8 @@
 <template>
   <TheNavigation/>
   <div class="container">
-    <router-view v-slot="{Component}" >
+    <router-view class="view left-sidebar" name="LeftSidebar"></router-view>
+    <router-view v-slot="{Component}" class="main-view" >
       <transition name="slide" mode="out-in">
         <component :is="Component" :key="$route.path"/>
       </transition>
@@ -25,5 +26,16 @@ export default{
 .slide-leave-to{
   opacity: 0;
   transform: translateX(-30%);
+}
+
+.container{
+  display: flex;
+}
+
+.left-sidebar{
+  width: 20%;
+}
+.main-view{
+  width: 100%;
 }
 </style>
