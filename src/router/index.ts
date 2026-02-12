@@ -1,6 +1,7 @@
 import Home from "@/views/Home.vue"
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import sourceData from '@/data.json'
+import LeftSideBar from "@/components/LeftSideBar.vue"
 // import path = require("path")
 
 
